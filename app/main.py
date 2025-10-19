@@ -206,8 +206,10 @@ def search(q: str | None = None):
 def login(payload: LoginRequest):
     # SQLi: обход авторизации через username="admin'-- " или password-инъекции
 
-    sql = f"SELECT id, username FROM users WHERE username = '{payload.username}' AND password = '{payload.password}'"
-    row = query_one(sql)
+    sql = f"SELECT id, username FROM users WHERE username = ? AND password = ?"
+    
+    row = query_one(sql, (payload.username, payload.password))
+    
     if not row:
         raise HTTPException(
             status_code=HTTP_401_UNAUTHORIZED, detail="Invalid credentials"
@@ -220,3 +222,8 @@ def login(payload: LoginRequest):
 def login_w_error(payload: LoginRequest):
 
     raise Exception(payload.model_dump())
+
+
+@app.get("/test_httpexception")
+def test_httpexception():
+    raise HTTPException(status_code=HTTP_400_BAD_REQUEST)

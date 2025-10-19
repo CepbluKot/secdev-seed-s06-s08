@@ -2,6 +2,6 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Echo</h1>
-  <div id="message">{{ message|safe }}</div>  {# намеренно небезопасно для демонстрации XSS #}
+  <div id="message">{{ message }}</div>
   <p>Попробуйте: <code>/echo?msg=&lt;script&gt;alert(1)&lt;/script&gt;</code></p>
 {% endblock %}

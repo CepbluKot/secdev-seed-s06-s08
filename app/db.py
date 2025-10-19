@@ -11,8 +11,7 @@ def get_conn() -> sqlite3.Connection:
     return conn
 
 
-def query(sql: str, pattern: tuple[str] = tuple()) -> List[Dict[str, Any]]:
-    """НАМЕРЕННО НЕБЕЗОПАСНО: принимает сырую строку SQL."""
+def query(sql: str, pattern: tuple[str, ...] = tuple()) -> List[Dict[str, Any]]:
     with get_conn() as conn:
         if pattern:
             rows = conn.execute(sql, pattern).fetchall()
@@ -21,7 +20,10 @@ def query(sql: str, pattern: tuple[str] = tuple()) -> List[Dict[str, Any]]:
         return [dict(r) for r in rows]
 
 
-def query_one(sql: str) -> Optional[Dict[str, Any]]:
+def query_one(sql: str, pattern: tuple[str, ...] = tuple()) -> Optional[Dict[str, Any]]:
     with get_conn() as conn:
-        row = conn.execute(sql).fetchone()
+        if pattern:
+            row = conn.execute(sql, pattern).fetchone()
+        else:
+            row = conn.execute(sql).fetchone()
         return dict(row) if row else None

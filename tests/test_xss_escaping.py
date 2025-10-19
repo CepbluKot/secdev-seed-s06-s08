@@ -10,3 +10,13 @@ def test_echo_should_escape_script_tags():
     assert (
         "<script>" not in resp.text
     ), "Вывод должен экранировать потенциальную XSS-последовательность"
+
+
+
+def test_echo():
+    # позитивный тест
+    resp = client.get("/echo", params={"msg": "test text"})
+    assert (
+        "test text" in resp.text
+    )
+
