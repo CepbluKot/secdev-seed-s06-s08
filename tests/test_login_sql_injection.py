@@ -1,8 +1,8 @@
-
 from fastapi.testclient import TestClient
 from app.main import app
 
 client = TestClient(app)
+
 
 def test_login_should_not_allow_sql_injection():
     # Ожидаем, что вход с username, содержащим SQL-комментарий, должен БЫТЬ запрещён.
