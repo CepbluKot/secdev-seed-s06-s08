@@ -15,7 +15,7 @@ templates = Jinja2Templates(directory="app/templates")
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s %(levelname)s %(name)s: %(message)s",
-    filename="log.log",
+    filename="app.log",
     filemode="w",
 )
 logger = logging.getLogger(__name__)

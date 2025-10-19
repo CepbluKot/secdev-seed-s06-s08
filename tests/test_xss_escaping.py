@@ -19,4 +19,3 @@ def test_echo():
     assert (
         "test text" in resp.text
     )
-

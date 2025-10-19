@@ -24,7 +24,6 @@ def test_search_long_query():
     assert resp_long.status_code == 400, "Слишком длинный запрос"
 
 
-
 def test_search_query():
     # позитивный тест
     resp_long = client.get(
