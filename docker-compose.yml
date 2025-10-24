@@ -15,9 +15,12 @@ services:
       timeout: 3s
       retries: 5
 
+
     # сделал hardening S07-10 - Лимиты ресурсов контейнера (лайт)
     deploy:
       resources:
         limits:
           cpus: '1.0'
           memory: 512M
+
+
